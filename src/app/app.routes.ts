@@ -46,20 +46,13 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'auth',
+        path: 'auth/login',
         loadComponent: () => import('./auth/login/login.component').then(c => c.LoginComponent),
         providers: [
             importProvidersFrom(
-                EffectsModule.forFeature([AuthEffects])
-                , StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer
-                )
+                EffectsModule.forFeature([AuthEffects]),
+                StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer)
             ),
         ],
-        // children:[
-        //     {
-        //         path:'login',
-        //         loadComponent:()=>import('./auth/login')
-        //     }
-        // ]
     }
 ];

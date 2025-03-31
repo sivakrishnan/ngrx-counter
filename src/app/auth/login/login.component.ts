@@ -24,7 +24,7 @@ export class LoginComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
-  }
+  } 
 
   showEmailError() {
     const controlEmail = this.loginForm.get('email');
