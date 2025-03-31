@@ -2,17 +2,21 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isD
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './counter/state/counter.reducer';
+import { provideStore, StoreModule } from '@ngrx/store';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { appReducer } from './store/app.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
     provideRouter(routes),
-    importProvidersFrom(StoreModule.forRoot(appReducer), ReactiveFormsModule),
+    provideStore(),
+    provideEffects(),    
+    importProvidersFrom(StoreModule.forRoot({}), EffectsModule.forRoot([]), ReactiveFormsModule),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
   ]
 };
+ 
