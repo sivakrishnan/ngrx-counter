@@ -47,12 +47,12 @@ export const routes: Routes = [
     },
     {
         path: 'auth/login',
-        loadComponent: () => import('./auth/login/login.component').then(c => c.LoginComponent),
+        loadComponent: () => import('./auth/login/login.component').then(c => c.LoginComponent),        
         providers: [
-            importProvidersFrom(
-                EffectsModule.forFeature([AuthEffects]),
+            importProvidersFrom( 
+                EffectsModule.forFeature([AuthEffects]),               
                 StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer)
             ),
-        ],
+        ],           
     }
 ];
