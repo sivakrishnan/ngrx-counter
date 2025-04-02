@@ -6,22 +6,20 @@ import { exhaustMap, map } from "rxjs";
 
 @Injectable()
 export class AuthEffects {
-
+    private actions$ = inject(Actions);
     constructor(private authService: AuthService) {
-
     }
 
-    private actions$ = inject(Actions);
-    
     login$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(loginStart),
             exhaustMap((action: any) => {
                 return this.authService.login(action.email, action.password).pipe(
                     map((data: any) => {
-                        return loginSuccess();
+                        const user = this.authService.formatUser(data);
+                        return loginSuccess({ user });
                     })
-                ) 
+                )
             })
         )
     })
