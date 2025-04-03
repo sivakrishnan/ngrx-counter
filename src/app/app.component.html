@@ -1,10 +1,10 @@
 <app-header></app-header>
-<app-loading-spinner></app-loading-spinner>
+<app-loading-spinner *ngIf="showLoading|async"></app-loading-spinner>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <!-- <app-counter></app-counter> -->
-       <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

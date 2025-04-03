@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.store';
 import { loginStart } from '../state/auth.actions';
+import { setLoadingSpinner } from '../../store/Shared/shared.actions';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
-  } 
+  }
 
   showEmailError() {
     const controlEmail = this.loginForm.get('email');
@@ -52,7 +53,7 @@ export class LoginComponent {
   onLoginSubmit() {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-
+    this.store.dispatch(setLoadingSpinner({ status: true }));
     this.store.dispatch(loginStart({ email, password }));
   }
 

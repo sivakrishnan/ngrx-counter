@@ -7,6 +7,7 @@ import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { appReducer } from './store/app.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideEffects(),    
-    importProvidersFrom(StoreModule.forRoot({}), EffectsModule.forRoot([]), ReactiveFormsModule),
+    importProvidersFrom(StoreModule.forRoot(appReducer), EffectsModule.forRoot([]), ReactiveFormsModule),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
   ]
 };
