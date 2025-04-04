@@ -4,7 +4,7 @@ import { CounterComponent } from "./counter/counter/counter.component";
 import { HeaderComponent } from "./shared/components/header/header.component";
 import { LoadingSpinnerComponent } from "./shared/components/loading-spinner/loading-spinner.component";
 import { Observable } from 'rxjs';
-import { getLoading } from './store/Shared/shared.selector';
+import { getErrorMessage, getLoading } from './store/Shared/shared.selector';
 import { AppState } from './store/app.store';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
@@ -19,12 +19,13 @@ import { CommonModule } from '@angular/common';
 export class AppComponent implements OnInit {
   title = 'ngrx-counter';
   showLoading!: Observable<boolean>;
-
+  errorMessage!: Observable<string>;
   constructor(private store: Store<AppState>) {
 
   }
 
   ngOnInit(): void {
     this.showLoading = this.store.select(getLoading);
+    this.errorMessage = this.store.select(getErrorMessage);
   }
 }

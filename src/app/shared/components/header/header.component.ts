@@ -1,13 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../../../store/app.store';
+import { isAuthenticated } from '../../../auth/state/auth.selector';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  isAuthenticated!: Observable<boolean>;
 
+  constructor(private store: Store<AppState>) {
+
+  }
+
+  ngOnInit(): void {
+    this.isAuthenticated = this.store.select(isAuthenticated);
+  }
 }
