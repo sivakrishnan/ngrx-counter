@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>SignUp</h3>
+            <hr />
+            <form [formGroup]="signUpForm" (ngSubmit)="onSignUpSubmit()">
+                <div class="mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" formControlName="email" />
+                    <label for="" class="text-danger">{{showEmailError()}}</label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" formControlName="password" />
+                    <label for="" class="text-danger">{{showPasswordError()}}</label>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary"[disabled]="!signUpForm.valid" >
+                        SignUp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

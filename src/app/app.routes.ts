@@ -6,10 +6,10 @@ import { counterReducer } from './counter/state/counter.reducer';
 import { postsReducer } from './posts/state/posts.reducer';
 import { POST_STATE_NAME } from './posts/state/posts.selectors';
 import { COUNTER_STATE_NAME } from './counter/state/counter.selectors';
-import { AUTH_STATE_NAME } from './auth/state/auth.selector';
-import { AuthReducer } from './auth/state/auth.reducer';
+
+import { SignupComponent } from './auth/signup/signup.component';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './auth/state/auth.effects';
+import { PostsEffects } from './posts/state/post.effects';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -32,7 +32,9 @@ export const routes: Routes = [
         path: 'posts',
         loadComponent: () => import('./posts/posts-list/posts-list.component').then((c) => c.PostsListComponent),
         providers: [
-            importProvidersFrom(StoreModule.forFeature(POST_STATE_NAME, postsReducer)),
+            importProvidersFrom(StoreModule.forFeature(POST_STATE_NAME, postsReducer),
+                EffectsModule.forFeature([PostsEffects]),
+            ),
         ],
         children: [
             {
@@ -46,13 +48,23 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'auth/login',
-        loadComponent: () => import('./auth/login/login.component').then(c => c.LoginComponent),        
-        providers: [
-            importProvidersFrom( 
-                EffectsModule.forFeature([AuthEffects]),               
-                StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer)
-            ),
-        ],           
+        path: 'auth',
+        // providers: [
+        //     importProvidersFrom(
+        //         EffectsModule.forFeature([AuthEffects]),
+        //         StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer)
+        //     ),
+        // ],
+        children: [
+            {
+                path: 'login',
+                loadComponent: () => import('./auth/login/login.component').then(c => c.LoginComponent),
+            },
+            {
+                path: 'signup',
+                component: SignupComponent,
+
+            },
+        ]
     }
 ];

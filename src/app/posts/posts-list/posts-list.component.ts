@@ -6,7 +6,7 @@ import { Post } from '../../models/state/posts.model';
 import { getPosts } from '../state/posts.selectors';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { deletePost } from '../state/posts.action';
+import { deletePost, loadPosts } from '../state/posts.action';
 
 @Component({
   selector: 'app-posts-list',
@@ -24,6 +24,7 @@ export class PostsListComponent {
 
   ngOnInit(): void {
     this.posts = this.store.select(getPosts);
+    this.store.dispatch(loadPosts());
   }
 
   onDeletePost(id: string) {

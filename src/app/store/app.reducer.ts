@@ -9,4 +9,4 @@ export const appReducer = {
     // posts: postsReducer,
     [SHARED_STATE_NAME]: SharedReducer,
     [AUTH_STATE_NAME]: AuthReducer,
-}
+} 
