@@ -30,6 +30,7 @@ export class AddPostComponent {
       return;
     }
     const post: Post = {
+      id: Math.floor(Math.random() * 1000).toString(),
       title: this.postForm.value.title,
       description: this.postForm.value.description,
     }

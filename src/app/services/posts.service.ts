@@ -31,4 +31,23 @@ export class PostsService {
       post
     );
   }
+
+  updatePost(post: Post) {
+    const postData = {
+      [post.id]: {
+        title: post.title,
+        description: post.description
+      },
+    };
+    return this.http.patch(
+      `https://ngrx-test-1-17983-default-rtdb.firebaseio.com/posts.json`,
+      postData
+    );
+  }
+
+  deletePost(id: string) {
+    return this.http.delete(
+      `https://ngrx-test-1-17983-default-rtdb.firebaseio.com/posts/${id}.json`
+    );
+  }
 }
