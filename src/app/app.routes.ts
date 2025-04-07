@@ -10,6 +10,7 @@ import { COUNTER_STATE_NAME } from './counter/state/counter.selectors';
 import { SignupComponent } from './auth/signup/signup.component';
 import { EffectsModule } from '@ngrx/effects';
 import { PostsEffects } from './posts/state/post.effects';
+import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -31,6 +32,7 @@ export const routes: Routes = [
     {
         path: 'posts',
         loadComponent: () => import('./posts/posts-list/posts-list.component').then((c) => c.PostsListComponent),
+        canActivate: [AuthGuard],
         providers: [
             importProvidersFrom(StoreModule.forFeature(POST_STATE_NAME, postsReducer),
                 EffectsModule.forFeature([PostsEffects]),

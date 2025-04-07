@@ -6,7 +6,7 @@ import { provideStore, StoreModule } from '@ngrx/store';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClient, HttpInterceptor, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpInterceptor, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { appReducer } from './store/app.reducer';
 import { AuthEffects } from './auth/state/auth.effects';
 import { AUTH_STATE_NAME } from './auth/state/auth.selector';
@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
 
     provideRouter(routes),
     provideStore(),
