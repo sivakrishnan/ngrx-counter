@@ -1,3 +1,4 @@
+import { RouterReducerState } from "@ngrx/router-store";
 import { AUTH_STATE_NAME } from "../auth/state/auth.selector";
 import { AuthState } from "../auth/state/auth.state";
 import { SHARED_STATE_NAME } from "./Shared/shared.selector";
@@ -8,4 +9,5 @@ export interface AppState {
     // posts: PostsState;
     [SHARED_STATE_NAME]: SharedState;
     [AUTH_STATE_NAME]: AuthState;
+    router: RouterReducerState
 }
